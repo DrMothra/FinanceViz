@@ -54,7 +54,6 @@ $(document).ready(function() {
     var app = new Framework();
     app.init(container);
     app.createScene();
-    app.createGUI();
 
     //GUI callbacks
 

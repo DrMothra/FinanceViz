@@ -1,7 +1,24 @@
 /* Framework styles */
 
+body {
+    background: #5e5e5e;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+.rounded {
+    border-radius: 15px;
+}
 #WebGL-output {
     /* set margin to 0 and overflow to hidden, to go fullscreen */
     margin: 0;
     overflow: hidden;
+}
+
+#controls {
+    text-align: center;
+    font-size: 1.3vw;
+    color: white;
 }

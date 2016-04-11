@@ -5,6 +5,7 @@
 
 function BaseApp() {
     this.renderer = null;
+    this.widthFactor = 0.75;
     this.scene = null;
     this.camera = null;
     this.controls = null;
@@ -34,16 +35,9 @@ BaseApp.prototype.init = function(container) {
 
 BaseApp.prototype.createRenderer = function() {
     this.renderer = new THREE.WebGLRenderer( {antialias : true, alpha: true});
-    this.renderer.setClearColor(0x5c5f64, 1.0);
+    this.renderer.setClearColor(0x000000, 1.0);
     this.renderer.shadowMapEnabled = true;
-    var isMSIE = /*@cc_on!@*/0;
-
-    var width = this.container.clientWidth;
-    if (isMSIE) {
-        // do IE-specific things
-        width = window.innerWidth;
-    }
-    this.renderer.setSize(width, window.innerHeight);
+    this.renderer.setSize(window.innerWidth * this.widthFactor, window.innerHeight);
     this.container.appendChild( this.renderer.domElement );
     var _this = this;
 
@@ -110,10 +104,10 @@ BaseApp.prototype.mouseMoved = function(event) {
 
 BaseApp.prototype.windowResize = function(event) {
     //Handle window resize
-    this.camera.aspect = this.container.clientWidth / window.innerHeight;
+    this.camera.aspect = (this.container.clientWidth * this.widthFactor )/ window.innerHeight;
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize( this.container.clientWidth, window.innerHeight);
+    this.renderer.setSize( this.container.clientWidth * this.widthFactor, window.innerHeight);
     //console.log('Size =', )
 };
 
@@ -146,7 +140,7 @@ BaseApp.prototype.createScene = function() {
 
 BaseApp.prototype.createCamera = function() {
 
-    this.camera = new THREE.PerspectiveCamera(45, this.container.clientWidth / window.innerHeight, 0.1, 5000 );
+    this.camera = new THREE.PerspectiveCamera(45, (this.container.clientWidth * this.widthFactor) / window.innerHeight, 0.1, 5000 );
     this.camera.position.set(0, 0, 100 );
 
     console.log('dom =', this.renderer.domElement);
