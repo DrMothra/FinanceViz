@@ -21,11 +21,22 @@ Framework.prototype.createScene = function() {
     //Create scene
     BaseApp.prototype.createScene.call(this);
 
+    //Dummy object data
+    var data = [6, 12, 18, 24, 30, 36];
+
     //Load example object
-    var boxGeom = new THREE.BoxGeometry(10, 10, 10);
+    var radius = 5, segments = 32;
+    var sphereGeom = new THREE.SphereGeometry(radius, segments, segments);
     var mat = new THREE.MeshPhongMaterial({color: 0xb5b5b5, transparent: false, opacity: 0.5});
-    var box = new THREE.Mesh(boxGeom, mat);
-    this.scene.add(box);
+    var sphere;
+    var x = 0, z = 0;
+    var xInc = 20;
+    for(var i=0; i<data.length; ++i) {
+        sphere = new THREE.Mesh(sphereGeom, mat);
+        sphere.position.set(x, data[i], z);
+        this.scene.add(sphere);
+        x += xInc;
+    }
 };
 
 Framework.prototype.createGUI = function() {
