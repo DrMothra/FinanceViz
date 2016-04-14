@@ -50,23 +50,37 @@
                 </div>
                 <div id="dataSelect">
                     <div>
-                        <input type="checkbox"> Show FTSE
+                        <input type="checkbox"> FTSE
                     </div>
                     <div>
-                        <input type="checkbox"> Show Deficit
+                        <input type="checkbox"> Deficit
                     </div>
                     <div>
-                        <input type="checkbox"> Show Debt
+                        <input type="checkbox"> Debt
                     </div>
                 </div>
                 <div>
+                    <p>Attribute</p>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-default dropdown-toggle" id="attribute" data-toggle="dropdown">
+                            FTSE <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">FTSE</a></li>
+                            <li><a href="#">Deficit</a></li>
+                            <li><a href="#">Debt</a></li>
+                        </ul>
+                    </div>
                     <p>Representation</p>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="represent">
-                            Style
+                            Sphere
                             <span class="caret"></span>
                         </button>
                     </div>
+                </div>
+                <div id="togglePanel">
+                    <p>Hide</p>
                 </div>
             </div>
         </div>

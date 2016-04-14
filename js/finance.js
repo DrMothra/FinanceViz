@@ -2,7 +2,7 @@
  * Created by DrTone on 04/12/2014.
  */
 //Visualisation framework
-
+var PLANE_WIDTH = 500, PLANE_HEIGHT = 100;
 //Init this app from base
 function Framework() {
     BaseApp.call(this);
@@ -20,6 +20,14 @@ Framework.prototype.init = function(container) {
 Framework.prototype.createScene = function() {
     //Create scene
     BaseApp.prototype.createScene.call(this);
+
+    //Create ground plane
+    var planeGeom = new THREE.PlaneBufferGeometry(PLANE_WIDTH, PLANE_HEIGHT);
+    var planeMat = new THREE.MeshPhongMaterial( {color: 0x3a3a3a} );
+    var plane = new THREE.Mesh(planeGeom, planeMat);
+    plane.rotation.x = -Math.PI/2;
+    plane.position.y = -100;
+    this.scene.add(plane);
 
     //Dummy object data
     var data = [6, 12, 18, 24, 30, 36];
