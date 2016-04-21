@@ -104,10 +104,10 @@ BaseApp.prototype.mouseMoved = function(event) {
 
 BaseApp.prototype.windowResize = function(event) {
     //Handle window resize
-    this.camera.aspect = (this.container.clientWidth * this.widthFactor )/ window.innerHeight;
+    this.camera.aspect = (window.innerWidth * this.widthFactor )/ window.innerHeight;
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize( this.container.clientWidth * this.widthFactor, window.innerHeight);
+    this.renderer.setSize( window.innerWidth * this.widthFactor, window.innerHeight);
     //console.log('Size =', )
 };
 
