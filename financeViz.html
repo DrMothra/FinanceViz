@@ -36,34 +36,50 @@
                 <div id="yearSelect">
                     <p>Year</p>
                     <div id="yearInfo">
-                        <button type="button" class="btn btn-info">L</button>
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </button>
                         <span>2001</span>
-                        <button type="button" class="btn btn-info">R</button>
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
                     </div>
                 </div>
                 <div id="movement">
                     <p>Zoom</p>
                     <div id="zoomControls">
-                        <button type="button" class="btn btn-info">-</button>
-                        <button type="button" class="btn btn-info">+</button>
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
                     </div>
                 </div>
-                <div id="dataSelect">
+                <div id="dataSelect" class="leftAlign leftBorder">
                     <div>
-                        <img src="images/eye.png"> FTSE
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                        FTSE
                     </div>
                     <div>
-                        <img src="images/eye.png"> Deficit
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                        Deficit
                     </div>
                     <div>
-                        <img src="images/eye.png"> Debt
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-eye-close"></span>
+                        </button>
+                        Debt
                     </div>
                 </div>
-                <div>
-                    <p>Attribute</p>
+                <div id="dataStyle" class="leftAlign leftBorder">
                     <div class="dropdown">
                         <button type="button" class="btn btn-default dropdown-toggle" id="attribute" data-toggle="dropdown">
-                            FTSE <span class="caret"></span>
+                            Attribute <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="#">FTSE</a></li>
@@ -71,12 +87,17 @@
                             <li><a href="#">Debt</a></li>
                         </ul>
                     </div>
-                    <p>Representation</p>
+
                     <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="represent">
-                            Sphere
+                        <button class="btn btn-default dropdown-toggle" type="button" id="represent" data-toggle="dropdown">
+                            Symbol
                             <span class="caret"></span>
                         </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Sphere</a></li>
+                            <li><a href="#">Cube</a></li>
+                            <li><a href="#">Pyramid</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div id="togglePanel">

@@ -9,6 +9,12 @@ body {
 .rounded {
     border-radius: 30px;
 }
+.leftAlign {
+    text-align: left;
+}
+.leftBorder {
+    margin-left: 40%;
+}
 #WebGL-output {
     /* set margin to 0 and overflow to hidden, to go fullscreen */
     margin: 0;
