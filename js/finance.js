@@ -2,7 +2,7 @@
  * Created by DrTone on 04/12/2014.
  */
 //Visualisation framework
-var PLANE_WIDTH = 500, PLANE_HEIGHT = 100;
+var PLANE_WIDTH = 5000, PLANE_HEIGHT = 5000;
 //Init this app from base
 function Framework() {
     BaseApp.call(this);
@@ -26,25 +26,31 @@ Framework.prototype.createScene = function() {
     var planeMat = new THREE.MeshPhongMaterial( {color: 0x3a3a3a} );
     var plane = new THREE.Mesh(planeGeom, planeMat);
     plane.rotation.x = -Math.PI/2;
-    plane.position.y = -100;
+    plane.position.y = 5800;
     this.scene.add(plane);
 
-    //Dummy object data
-    var data = [6, 12, 18, 24, 30, 36];
+    //Load in data
+    var _this = this;
+    this.dataLoader = new dataLoader();
+    this.dataLoader.load("data/ftseData.json", function(data) {
+        console.log("FTSE data loaded");
+        _this.data = data;
 
-    //Load example object
-    var radius = 5, segments = 32;
-    var sphereGeom = new THREE.SphereGeometry(radius, segments, segments);
-    var mat = new THREE.MeshPhongMaterial({color: 0xb5b5b5, transparent: false, opacity: 0.5});
-    var sphere;
-    var x = 0, z = 0;
-    var xInc = 20;
-    for(var i=0; i<data.length; ++i) {
-        sphere = new THREE.Mesh(sphereGeom, mat);
-        sphere.position.set(x, data[i], z);
-        this.scene.add(sphere);
-        x += xInc;
-    }
+        //Render data
+        var radius = 5, segments = 32;
+        var sphereGeom = new THREE.SphereGeometry(radius, segments, segments);
+        var mat = new THREE.MeshPhongMaterial({color: 0xb5b5b5, transparent: false, opacity: 0.5});
+        var sphere;
+        var x = 0, z = 0;
+        var xInc = 20;
+        for(var i=0; i<23; ++i) {
+            sphere = new THREE.Mesh(sphereGeom, mat);
+            sphere.position.set(x, _this.data[i]["Adj Close"], z);
+            _this.scene.add(sphere);
+            x += xInc;
+        }
+    });
+
 };
 
 Framework.prototype.createGUI = function() {
