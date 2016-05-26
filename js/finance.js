@@ -3,21 +3,24 @@
  */
 //Visualisation framework
 var PLANE_WIDTH = 5000, PLANE_HEIGHT = 5000;
+var ZOOM_INC = 100, MOVE_INC = 10;
+
 //Init this app from base
-function Framework() {
+function Finance() {
     BaseApp.call(this);
 }
 
-Framework.prototype = new BaseApp();
+Finance.prototype = new BaseApp();
 
-Framework.prototype.init = function(container) {
+Finance.prototype.init = function(container) {
     BaseApp.prototype.init.call(this, container);
     //GUI
     this.guiControls = null;
     this.gui = null;
+    this.lookAt = new THREE.Vector3();
 };
 
-Framework.prototype.createScene = function() {
+Finance.prototype.createScene = function() {
     //Create scene
     BaseApp.prototype.createScene.call(this);
 
@@ -36,24 +39,53 @@ Framework.prototype.createScene = function() {
         console.log("FTSE data loaded");
         _this.data = data;
 
-        //Render data
-        var radius = 5, segments = 32;
+        _this.preprocessData();
+
+        //Sphere object
+        var radius = 5, segments = 32, i;
         var sphereGeom = new THREE.SphereGeometry(radius, segments, segments);
-        var mat = new THREE.MeshPhongMaterial({color: 0xb5b5b5, transparent: false, opacity: 0.5});
+        var sphereMat = new THREE.MeshPhongMaterial({color: 0xb5b5b5, transparent: false, opacity: 0.5});
         var sphere;
-        var x = 0, z = 0;
+        var x = 0, y = 6100, z = 0;
         var xInc = 20;
-        for(var i=0; i<23; ++i) {
-            sphere = new THREE.Mesh(sphereGeom, mat);
+
+        //Render data
+        //Years
+        var yearGroup = new THREE.Object3D();
+        _this.scene.add(yearGroup);
+        sphere = new THREE.Mesh(sphereGeom, sphereMat);
+        sphere.position.set(x, y, z);
+        yearGroup.add(sphere);
+
+        //Months
+        var monthGroup = new THREE.Object3D();
+        _this.scene.add(monthGroup);
+        z = -1000;
+        for(i=0; i<4; ++i) {
+            sphere = new THREE.Mesh(sphereGeom, sphereMat);
+            sphere.position.set(x, 6100, z);
+            monthGroup.add(sphere);
+            x += xInc;
+        }
+
+        //Days
+        var dayGroup = new THREE.Object3D();
+        _this.scene.add(dayGroup);
+        x=0, z=-2000;
+        for(i=0; i<23; ++i) {
+            sphere = new THREE.Mesh(sphereGeom, sphereMat);
             sphere.position.set(x, _this.data[i]["Adj Close"], z);
-            _this.scene.add(sphere);
+            dayGroup.add(sphere);
             x += xInc;
         }
     });
+};
+
+Finance.prototype.preprocessData = function() {
 
 };
 
-Framework.prototype.createGUI = function() {
+Finance.prototype.createGUI = function() {
     //GUI - using dat.GUI
     this.guiControls = new function() {
 
@@ -67,20 +99,57 @@ Framework.prototype.createGUI = function() {
     this.gui = gui;
 };
 
-Framework.prototype.update = function() {
+Finance.prototype.update = function() {
     //Perform any updates
 
     BaseApp.prototype.update.call(this);
 };
 
+Finance.prototype.zoomIn = function() {
+    this.camera.position.z -= ZOOM_INC;
+};
+
+Finance.prototype.zoomOut = function() {
+    this.camera.position.z += ZOOM_INC;
+};
+
+Finance.prototype.moveRight = function() {
+    this.camera.position.x += MOVE_INC;
+    this.lookAt = this.controls.getLookAt();
+    this.lookAt.position.x += MOVE_INC;
+    this.controls.setLookAt(this.lookAt);
+};
+
+Finance.prototype.moveLeft = function() {
+    this.camera.position.x -= MOVE_INC;
+    this.lookAt = this.controls.getLookAt();
+    this.lookAt.position.x -= MOVE_INC;
+    this.controls.setLookAt(this.lookAt);
+};
+
 $(document).ready(function() {
     //Initialise app
     var container = document.getElementById("WebGL-output");
-    var app = new Framework();
+    var app = new Finance();
     app.init(container);
     app.createScene();
 
     //GUI callbacks
+    $('#zoomOut').on("click", function() {
+        app.zoomOut();
+    });
+
+    $('#zoomIn').on("click", function() {
+        app.zoomIn();
+    });
+
+    $('#moveRight').on("click", function() {
+        app.moveRight();
+    });
+
+    $('#moveLeft').on("click", function() {
+        app.moveLeft();
+    });
 
     app.run();
 });
